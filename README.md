@@ -1,3 +1,8 @@
+
+This fork selects an item when you mouse out of the menu. Kill unclutter before using, it will potentially auto-select with a fake event.
+
+-----
+
 # πmenu
 
 <p align="center">
