@@ -1686,16 +1686,16 @@ selectslice:
 				XWarpPointer(dpy, None, currmenu->win, 0, 0, 0, 0, pie.radius, pie.radius);
 			break;
 		case LeaveNotify:
-			if (!(ev.xcrossing.state & (Button1Mask | Button3Mask)))
-				break;
-			menu = getmenu(currmenu, ev.xcrossing.window);
-			slice = getslice(menu, ev.xcrossing.x, ev.xcrossing.y);
-			if (menu == NULL || slice == NULL)
-				break;
-			if (slice == currmenu->selected &&
-			    (slice->submenu != NULL || slice->iscmd == CMD_NOTRUN))
+			timeout = -1;
+
+			if (currmenu->selected != NULL) {
+				slice = currmenu->selected;
 				goto selectslice;
+			} else break;
+			currmenu->selected = slice;
+			copymenu(currmenu);
 			break;
+
 		case ButtonPress:
 			timeout = -1;
 			if (ev.xbutton.button != Button1 && ev.xbutton.button != Button3)
